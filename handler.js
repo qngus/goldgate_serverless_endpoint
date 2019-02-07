@@ -1,13 +1,17 @@
 'use strict';
 const request = require('request');
 
-module.exports.endpoint = async (event, context, callback) => {
-  const response = {
+module.exports.endpoint = (event, context, callback) => {
+
+request("https://my-json-server.typicode.com/gbandsmith/GoldGate/licenses", function(error, response, data) {
+  var response = {
     statusCode: 200,
-    body: request('https://my-json-server.typicode.com/gbandsmith/GoldGate/licenses', { json: true }, (err, resp, reqBody) => {
-      if (err) { return console.log(err); }
-      return resp;
-  }),
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: data
   };
-  callback(null,response);
+  callback(null, response);
+});
+
 };
